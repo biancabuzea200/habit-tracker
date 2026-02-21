@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package habits;
+
+option go_package = "github.com/biancabuzea/habit-tracker-backend/proto/habits";
+
+service HabitService {
+  rpc CreateHabit(CreateHabitRequest) returns (CreateHabitResponse);
+  rpc GetAllHabits(GetAllHabitsRequest) returns (GetAllHabitsResponse);
+  rpc LogHabitCompletion(LogHabitCompletionRequest) returns (LogHabitCompletionResponse);
+  rpc GetHabitHistory(GetHabitHistoryRequest) returns (GetHabitHistoryResponse);
+}
+
+message CreateHabitRequest {
+  string name = 1;
+}
+
+message CreateHabitResponse {
+  int32 id = 1;
+  string name = 2;
+}
+
+message GetAllHabitsRequest {}
+
+message Habit {
+  int32 id = 1;
+  string name = 2;
+}
+
+message GetAllHabitsResponse {
+  repeated Habit habits = 1;
+}
+
+message LogHabitCompletionRequest {
+  string habit_name = 1;
+  int64 timestamp = 2; // Unix timestamp in seconds
+}
+
+message LogHabitCompletionResponse {
+  int32 id = 1;
+  string habit_name = 2;
+  int64 timestamp = 3;
+}
+
+message GetHabitHistoryRequest {
+  string habit_name = 1;
+}
+
+message HabitCompletion {
+  int32 id = 1;
+  string habit_name = 2;
+  int64 timestamp = 3;
+}
+
+message GetHabitHistoryResponse {
+  repeated HabitCompletion completions = 1;
+}
